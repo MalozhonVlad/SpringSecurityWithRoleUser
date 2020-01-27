@@ -3,24 +3,23 @@ package com.example.demo.domain;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Collection;
+import javax.persistence.*;
 import java.util.Set;
 
 
 @Data
-@Document
+//@Document
+@Entity
+@Table(name = "std")
 @AllArgsConstructor
 @NoArgsConstructor
 public class Student implements UserDetails {
 
     @Id
-    private String id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
     private String username;
     private String password;
@@ -29,6 +28,9 @@ public class Student implements UserDetails {
     private boolean credentialsNonExpired;
     private boolean enabled;
 
+    @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
+    @CollectionTable(name = "student_role", joinColumns = @JoinColumn(name = "student_id"))
+    @Enumerated(EnumType.STRING)
     private Set<Role> authorities;
 
     public Student(String username, String password) {

@@ -1,6 +1,6 @@
 package com.example.demo.service;
 
-import com.example.demo.repository.UserRepository;
+import com.example.demo.repository.StudentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -9,9 +9,9 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class UserService implements UserDetailsService {
+public class StudentService implements UserDetailsService {
 
-    private final UserRepository userRepository;
+    private final StudentRepository userRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
